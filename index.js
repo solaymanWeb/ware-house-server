@@ -34,6 +34,13 @@ async function run(){
             res.send(fridge)
         })
 
+        app.post('/fridge', async(req, res)=>{
+            const newService= req.body;
+            const result = await fridgeCollection.insertOne(newService);
+            res.send(result);
+
+        })
+
 
        });
 
