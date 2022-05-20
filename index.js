@@ -38,9 +38,15 @@ async function run(){
             const newService= req.body;
             const result = await fridgeCollection.insertOne(newService);
             res.send(result);
-
         })
 
+        //DELETE
+        app.delete('/fridge/:id', async(req,res)=>{
+            const id= req.params.id;
+            const query ={_id: ObjectId(id)};
+            const result = await fridgeCollection.deleteOne(query);
+            res.send(result);
+        })
 
        });
 
