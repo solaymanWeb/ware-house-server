@@ -41,17 +41,19 @@ async function run(){
         })
 
         // update quantity
+
         app.put('/fridge/:id',async(req, res)=>{
             const id= req.params.id;
             const updateQuantity = req.body;
+            
             const filter = {_id: ObjectId(id)};
-            const options ={upsert: true};
+            // const options ={upsert: true};
             const updateDoc ={
                 $set:{
-                    quantity: updateQuantity.quantity
+                    quantity: updateQuantity.totalCount
                 }
             };
-            const result = await fridgeCollection.updateOne(filter, updateDoc, options)
+            const result = await fridgeCollection.updateOne(filter, updateDoc)
             res.send(result)
         })
 
