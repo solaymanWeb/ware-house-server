@@ -33,11 +33,26 @@ async function run(){
             const fridge = await fridgeCollection.findOne(query)
             res.send(fridge)
         })
-
+        //POST  data 
         app.post('/fridge', async(req, res)=>{
             const newService= req.body;
             const result = await fridgeCollection.insertOne(newService);
             res.send(result);
+        })
+
+        // update quantity
+        app.put('/fridge/:id',async(req, res)=>{
+            const id= req.params.id;
+            const updateQuantity = req.body;
+            const filter = {_id: ObjectId(id)};
+            const options ={upsert: true};
+            const updateDoc ={
+                $set:{
+                    quantity: updateQuantity.quantity
+                }
+            };
+            const result = await fridgeCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
         })
 
         //DELETE
